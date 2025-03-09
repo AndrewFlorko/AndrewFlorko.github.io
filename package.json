@@ -6,6 +6,7 @@
   "author": "Igor <spirit-drive@yandex.ru>",
   "scripts": {
     "start": "webpack serve --mode development",
+    "predeploy": "npm run build",
     "deploy": "npx gh-pages -d dist -e firstreactapp",
     "build": "webpack --mode production",
     "test": "jest src",
