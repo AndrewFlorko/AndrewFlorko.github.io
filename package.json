@@ -1,5 +1,6 @@
 {
   "name": "react-start-template",
+  "home": "https://andrewflorko.github.io/",
   "version": "1.0.0",
   "description": "Start repo with required configuration",
   "main": "src/index.tsx",
