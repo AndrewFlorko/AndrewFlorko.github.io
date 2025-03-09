@@ -22,6 +22,16 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
+
+}
+.App-goal, .App-tech, .App-experience {
+    font-size: 1.2rem;
+    margin: 5px 0;
+    max-width: 600px;
+}
+  
+strong {
+    color: #61dafb; /* Цвет для выделенных элементов */
 }
 
 .App-link {
