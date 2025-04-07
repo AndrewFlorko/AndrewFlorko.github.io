@@ -1,6 +1,11 @@
 /**
  * Нужно превратить файл в ts и указать типы аргументов и типы возвращаемого значения
  * */
+interface Point2d {
+  x: number;
+  y: number;
+} 
+
 export const removePlus = (string: string): string => string.replace(/^\+/, '');
 
 export const addPlus = (string: number): string => `+${string}`;
@@ -18,7 +23,7 @@ export const round = (value: number, accuracy = 2): number => {
 const transformRegexp =
   /(matrix\(-?\d+(\.\d+)?, -?\d+(\.\d+)?, -?\d+(\.\d+)?, -?\d+(\.\d+)?, )(-?\d+(\.\d+)?), (-?\d+(\.\d+)?)\)/;
 
-export const getTransformFromCss = (transformCssString: string): {x: number, y: number} => {
+export const getTransformFromCss = (transformCssString: string): Point2d => {
   const data = transformCssString.match(transformRegexp);
   if (!data) return { x: 0, y: 0 };
   return {
@@ -27,11 +32,12 @@ export const getTransformFromCss = (transformCssString: string): {x: number, y: 
   };
 };
 
-export const getColorContrastValue = ([red, green, blue]: number[]): number =>
+export const getColorContrastValue = ([red, green, blue]: [number, number, number]): number =>
   // http://www.w3.org/TR/AERT#color-contrast
   Math.round((red * 299 + green * 587 + blue * 114) / 1000);
 
-export const getContrastType = (contrastValue: number) : string => (contrastValue > 125 ? 'black' : 'white');
+type Color =  'black' | 'white'
+export const getContrastType = (contrastValue: number) : Color => (contrastValue > 125 ? 'black' : 'white');
 
 export const shortColorRegExp = /^#[0-9a-f]{3}$/i;
 export const longColorRegExp = /^#[0-9a-f]{6}$/i;
@@ -57,9 +63,16 @@ export const hex2rgb = (color: string): [red: number, green: number, blue: numbe
 export const getNumberedArray = <T>(arr: T[]): { value: T; number: number }[] => 
   arr.map((value, number) => ({ value, number }));
 
-export const toStringArray = (arr: []): string[] => arr.map(({ value, number }) => `${value}_${number}`);
+export const toStringArray = <T>(arr: T[]): string[] => arr.map(( value, number ) => `${value}_${number}`);
 
-export const transformCustomers = (customers: {id: number, name: string, age: number, isSubscribed: boolean}[]) => {
+interface Customer {
+  id: number;
+  name: string;
+  age: number;
+  isSubscribed: boolean
+};
+
+export const transformCustomers = (customers: Customer[]) => {
   return customers.reduce((acc, customer) => {
     acc[customer.id] = { name: customer.name, age: customer.age, isSubscribed: customer.isSubscribed };
     return acc;
